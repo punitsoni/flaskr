@@ -3,16 +3,12 @@ from flask import Flask, request, session, g, redirect, url_for, \
     abort, render_template, flash
 from contextlib import closing
 
-DATABASE = '/usr2/punits/workspace/mywork/web/flask/flaskr/flaskr.db'
-DEBUG = True
-SECRET_KEY = 'development key'
-USERNAME = 'admin'
-PASSWORD = 'default'
+# import default config module
+import flaskr_config
 
 app = Flask(__name__)
-app.config.from_object(__name__)
-
-#app.config.from_envvar('FLASKR_SETTINGS', silent=True)
+app.config.from_object(flaskr_config)
+app.config.from_envvar('FLASKR_CONFIG', silent=True)
 
 def init_db():
 	with closing(connect_db()) as db:
@@ -33,7 +29,9 @@ def teardown_request(exception):
     if db is not None:
         db.close()
 
+# views
 @app.route('/')
+@app.route('/index')
 def show_entries():
     cur = g.db.execute('select title, text from entries order by id desc')
     entries = [dict(title=row[0], text=row[1]) for row in cur.fetchall()]
