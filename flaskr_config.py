@@ -1,4 +1,5 @@
-DATABASE = '/usr2/punits/workspace/mywork/web/flask/flaskr/flaskr.db'
+APP_ROOT = '/usr2/punits/workspace/mywork/www/flaskr/'
+DATABASE = APP_ROOT + 'tmp/flaskr.db'
 DEBUG = True
 SECRET_KEY = 'development key'
 USERNAME = 'admin'
