@@ -1,0 +1,8 @@
+{% extends "bs_layout.html" %}
+{% block body %}
+<h1>System Information</h1>
+<h2> Load </h2>
+  <p>
+  {{ entries['load'][0] }}, {{ entries['load'][1] }}, {{ entries['load'][2] }}
+  </p>
+{% endblock %}

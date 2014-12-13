@@ -9,6 +9,8 @@ import flaskr_config
 app = Flask(__name__)
 app.config.from_object(flaskr_config)
 app.config.from_envvar('FLASKR_CONFIG', silent=True)
+admin_username = "admin"
+admin_password = "default"
 
 from app import views
 

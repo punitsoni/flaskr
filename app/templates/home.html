@@ -1,0 +1,43 @@
+{% extends "bs_layout.html" %}
+{% block body %}
+<div class="jumbotron">
+<h2>Hello, Visitor!</h2>
+<form role="form" action="{{ url_for('add_post') }}" method=post>
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control"
+    id="name" name="name" required>
+  </div>
+  <div class="form-group">
+    <label for="message">Message</label>
+    <textarea class="form-control" rows="2" id="message"
+    name="message" required></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">Say Hi</button>
+</form>
+</div>
+  <!--
+  <a href="#" class="btn btn-info btn-lg"> Say Hi
+    <span class="glyphicon glyphicon-bullhorn"></span></a>
+  -->
+  <hr>
+  <p>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Posts from visitors</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for post in posts %}
+        <tr>
+          <td><em><b>{{ post.name }}</em></b> says</td>
+        </tr>
+        <tr>
+          <td>{{ post.message|safe }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </p>
+{% endblock %}
