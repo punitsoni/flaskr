@@ -37,8 +37,8 @@ def login():
 @app.route('/logout')
 def logout():
     session.pop('logged_in', None)
-    flash('You were logged out')
-    return redirect(url_for('show_entries'))
+    flash('You were successfully logged out.')
+    return redirect(url_for('home'))
 
 @app.route('/')
 @app.route('/home')
@@ -54,7 +54,7 @@ def add_post():
                  [request.form['name'], request.form['message']])
     g.db.commit()
     flash('Your message was successfully posted.')
-    return redirect(url_for('home'))	
+    return redirect(url_for('home'))
 
 @app.route('/sysinfo')
 def sysinfo():
@@ -73,10 +73,13 @@ def admin():
 			error = "Invalid passowrd"
 		else:
 			session['logged_in'] = True
-			flash('You are logged in.') 
+			flash('You are logged in.')
 	print "error: ", error
 	return render_template('admin.html', error=error)
 
-@app.route('/del_posts')
+@app.route('/del_posts', methods=['POST'])
 def del_posts():
-	return jsonify(result="success")
+	print "deleting all posts"
+	g.db.execute('delete from entries')
+	g.db.commit()
+	return "success"
