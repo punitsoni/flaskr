@@ -66,7 +66,6 @@ def sysinfo():
 def admin():
 	error = None
 	if request.method == 'POST':
-		print "post request"
 		if request.form['username'] != app.config['USERNAME']:
 			error = "Invalid username"
 		elif request.form['password'] != app.config['PASSWORD']:
@@ -74,7 +73,6 @@ def admin():
 		else:
 			session['logged_in'] = True
 			flash('You are logged in.')
-	print "error: ", error
 	return render_template('admin.html', error=error)
 
 @app.route('/del_posts', methods=['POST'])
