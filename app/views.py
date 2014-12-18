@@ -1,8 +1,9 @@
 import sqlite3
 from flask import Flask, request, session, g, redirect, url_for, \
-    abort, render_template, flash
-import psi
+abort, render_template, flash
+import platform
 from app import app
+from app import sys_info
 
 @app.route('/old')
 def show_entries():
@@ -14,11 +15,11 @@ def show_entries():
 def add_entry():
     if not session.get('logged_in'):
         abort(401)
-    g.db.execute('insert into entries (title, text) values (?, ?)',
-                 [request.form['title'], request.form['text']])
-    g.db.commit()
-    flash('New entry was successfully posted')
-    return redirect(url_for('show_entries'))
+        g.db.execute('insert into entries (title, text) values (?, ?)',
+           [request.form['title'], request.form['text']])
+        g.db.commit()
+        flash('New entry was successfully posted')
+        return redirect(url_for('show_entries'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -32,7 +33,7 @@ def login():
             session['logged_in'] = True
             flash('You were logged in')
             return redirect(url_for('show_entries'))
-    return render_template('login.html', error=error)
+            return render_template('login.html', error=error)
 
 @app.route('/logout')
 def logout():
@@ -43,41 +44,40 @@ def logout():
 @app.route('/')
 @app.route('/home')
 def home():
-	posts=[]
-	cur = g.db.execute('select title, text from entries order by id desc')
-	posts = [dict(name=row[0], message=row[1]) for row in cur.fetchall()]
-	return render_template("home.html", posts=posts)
+    posts=[]
+    cur = g.db.execute('select title, text from entries order by id desc')
+    posts = [dict(name=row[0], message=row[1]) for row in cur.fetchall()]
+    return render_template("home.html", posts=posts)
 
 @app.route('/addpost', methods=['POST'])
 def add_post():
-    g.db.execute('insert into entries (title, text) values (?, ?)',
-                 [request.form['name'], request.form['message']])
+    g.db.execute('insert into entries (title, text) values (?, ?)', \
+        [request.form['name'], request.form['message']])
     g.db.commit()
     flash('Your message was successfully posted.')
     return redirect(url_for('home'))
 
 @app.route('/sysinfo')
 def sysinfo():
-	entries = {}
-	entries['load'] = psi.loadavg()
-	return render_template('sysinfo.html', entries=entries)
+    print sys_info['system']
+    return render_template('sysinfo.html', sys_info=sys_info)
 
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
-	error = None
-	if request.method == 'POST':
-		if request.form['username'] != app.config['USERNAME']:
-			error = "Invalid username"
-		elif request.form['password'] != app.config['PASSWORD']:
-			error = "Invalid passowrd"
-		else:
-			session['logged_in'] = True
-			flash('You are logged in.')
-	return render_template('admin.html', error=error)
+    error = None
+    if request.method == 'POST':
+        if request.form['username'] != app.config['USERNAME']:
+            error = "Invalid username"
+        elif request.form['password'] != app.config['PASSWORD']:
+            error = "Invalid passowrd"
+        else:
+            session['logged_in'] = True
+            flash('You are logged in.')
+    return render_template('admin.html', error=error)
 
 @app.route('/del_posts', methods=['POST'])
 def del_posts():
-	print "deleting all posts"
-	g.db.execute('delete from entries')
-	g.db.commit()
-	return "success"
+    print "deleting all posts"
+    g.db.execute('delete from entries')
+    g.db.commit()
+    return "success"

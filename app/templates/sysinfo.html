@@ -4,18 +4,46 @@
 	<h2>System Information and Status</h2><hr>
 	<div class="row">
 		<div class="col-sm-6">
-			<h3>Load </h3>
-        <span class="label label-success">{{ entries['load'][0] }}</span>
-				<span class="label label-success">{{ entries['load'][1] }}</span>
-				<span class="label label-success">{{ entries['load'][2] }}</span>
-		</div>
-		<div class="col-sm-6">
-			<h3> Dummy Progress </h3>
-			<div class="progress">
-				<div class="progress-bar" role="progressbar" aria-valuenow="60"
-				aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-				<span class="sr-only">60% Complete</span></div>
-			</div>
-		</div>
-	</div>
-	{% endblock %}
+      {#
+      <h3>Load </h3>
+      <span class="label label-success">{{ entries['load'][0] }}</span>
+      <span class="label label-success">{{ entries['load'][1] }}</span>
+      <span class="label label-success">{{ entries['load'][2] }}</span>
+      #}
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th colspan="2">System details</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for key, val in sys_info.iteritems() %}
+          <tr>
+            <td>{{ key }}</td>
+            <td>{{ val }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="col-sm-6">
+      <div class="panel panel-default">
+        <div class="panel-heading"> <strong>A Panel</strong> </div>
+        <div class="panel-body">
+          <h3> Dummy Progress </h3>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="60"
+            aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+            <span class="sr-only">60% Complete</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+       <div class="panel-heading"><strong> Another Panel</strong> </div>
+       <div class="panel-body">
+        Some data here
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
