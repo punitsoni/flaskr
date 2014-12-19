@@ -6,6 +6,7 @@ import platform
 from datetime import timedelta
 # import default config module
 import flaskr_config
+import os
 
 def get_sys_info():
     sys_info = {}
@@ -25,12 +26,21 @@ def init_db():
 def connect_db():
     return sqlite3.connect(app.config['DATABASE'])
 
-
 # module init code
 app = Flask(__name__)
 app.config.from_object(flaskr_config)
 app.config.from_envvar('FLASKR_CONFIG', silent=True)
 sys_info = get_sys_info()
+
+# check for valid configuration and database setup
+if os.path.isdir(app.config['APP_ROOT']) == False:
+    print "Invalid APP_ROOT set in the config. Please set correct path."
+    exit()
+
+if os.path.isfile(app.config['DATABASE']) == False:
+    print "Databse not found. Creating new one at ", app.config['DATABASE']
+    os.mkdir(os.path.dirname(app.config['DATABASE']), 0755)
+    init_db()
 
 @app.before_request
 def before_request():
