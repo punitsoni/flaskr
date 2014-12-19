@@ -1,9 +1,9 @@
 {% extends "bs_layout.html" %}
 {% block body %}
 <div class="container">
-	<h2>System Information and Status</h2><hr>
-	<div class="row">
-		<div class="col-sm-6">
+  <h2>System Information and Status</h2><hr>
+  <div class="row">
+    <div class="col-sm-6">
       {#
       <h3>Load </h3>
       <span class="label label-success">{{ entries['load'][0] }}</span>
@@ -19,8 +19,8 @@
         <tbody>
           {% for key, val in sys_info.iteritems() %}
           <tr>
-            <td>{{ key }}</td>
-            <td>{{ val }}</td>
+            <td>{{ val[0] }}</td>
+            <td>{{ val[1] }}</td>
           </tr>
           {% endfor %}
         </tbody>

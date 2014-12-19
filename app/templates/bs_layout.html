@@ -10,39 +10,40 @@
   <!-- Bootstrap theme -->
   <link href="http://getbootstrap.com/dist/css/bootstrap-theme.min.css"
   rel="stylesheet">
+  <!-- site specific css -->
   <link href="{{ url_for('static', filename='style.css') }}"
-  rel="stylesheet" type="text/css">
+  rel="stylesheet">
 
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet"
-  href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-  <title>Flaskr</title>
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js">
   </script>
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="static/main.js"></script>
 </head>
 <body role="document">
 <br>
 <div class="container">
-  <nav class="navbar navbar-inverse">
-    <div class="container">
-      <div class="navbar-header">
+  <nav class="navbar navbar-inverse" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
       <strong>
         <a class="navbar-brand" href="{{ url_for('home') }}">
-        <span class="glyphicon glyphicon-certificate"></span>
+        <span class="glyphilcon glyphicon-star"></span>
         Flaskr</a>
-        </strong>
+      </strong>
       </div>
-      <div>
       <ul class="nav navbar-nav">
-        <li class="active"><a href="{{ url_for('home') }}">Home</a></li>
+        <li><a href="{{ url_for('home') }}">Home</a></li>
         <li><a href="{{ url_for('sysinfo') }}">System Status</a></li>
         <li><a href="{{ url_for('admin') }}">Administration</a></li> 
       </ul>
-    </div>
-    </div>
+      <ul class="nav navbar-nav navbar-right">
+        {% if session.logged_in %}
+        <li><a href="{{ url_for('logout') }}">logout</a></li> 
+        {% else %}
+        <li><a href="{{ url_for('admin') }}">login</a></li> 
+        {% endif %}
+      </ul>
+      </div>
   </nav>
   </div>
   <div class="container">
@@ -51,6 +52,7 @@
     <span class="glyphicon glyphicon-thumbs-up"></span>
     </div>
     {% endfor %}
+    <div id="dynamic_msg"></div>
   </div>
   {% block body %}{% endblock %}
 </body>

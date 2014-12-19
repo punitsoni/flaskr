@@ -59,7 +59,6 @@ def add_post():
 
 @app.route('/sysinfo')
 def sysinfo():
-    print sys_info['system']
     return render_template('sysinfo.html', sys_info=sys_info)
 
 @app.route('/admin', methods=['GET', 'POST'])

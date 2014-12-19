@@ -2,43 +2,43 @@
 {% block body %}
 <div class="container" role="main">
   <div class="row">
-  <div class="col-sm-4">
-    <h2>Hello, Visitor!</h2>
-    <form role="form" action="{{ url_for('add_post') }}" method=post>
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" class="form-control"
-        id="name" name="name" required>
-      </div>
-      <div class="form-group">
-        <label for="message">Message</label>
-        <textarea class="form-control" rows="3" id="message"
-        name="message" required></textarea>
-      </div>
-      <button type="submit" class="btn btn-primary">Say Hi</button>
-    </form>
-  </div>
-  <div class="col-sm-8">
-  <p>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Messages from visitors</th>
-        </tr>
-      </thead>
-      <tbody>
+    <div class="col-sm-4">
+    <div class="shadow-pane">
+      <h2>Hello, Visitor!</h2>
+      <form role="form" action="{{ url_for('add_post') }}" method=post>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" class="form-control"
+          id="name" name="name" required>
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea class="form-control" rows="3" id="message" style="resize:none;"
+          name="message" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Say Hi</button>
+      </form>
+    </div>
+    </div>
+    <div class="col-sm-8">
+      <div class="post-container">
+        <h3> Messages from visitors </h3>
         {% for post in posts %}
-        <tr>
-          <td><em><b>{{ post.name }}</em></b> says...</td>
-        </tr>
-        <tr>
-          <td>{{ post.message|safe }}</td>
-        </tr>
+        <div class="post" id="message{{ loop.index }}">
+        {% if session.logged_in %}
+        <button id='close' class="btn btn-xs btn-link"
+        onclick='this.parentNode.parentNode.removeChild(this.parentNode); return false;'>delete</button>
+        {% endif %}
+          <strong>{{post.name}}</strong><br>
+          {{post.message|safe}}
+        </div>
+        {% else %}
+        <div class="post">
+          <strong>Oh Snap!</strong><em> No messages, post one fast! </em>
+        </div>
         {% endfor %}
-      </tbody>
-    </table>
-  </p>
-  </div>
+      </div>
+    </div>
   </div>
 </div>
 {% endblock %}
