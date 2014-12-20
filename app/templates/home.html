@@ -19,6 +19,9 @@
         <button type="submit" class="btn btn-primary">Say Hi</button>
       </form>
     </div>
+    <div class="shadow-pane" id="loc-info" style="margin-top:10px;">
+    <strong> Your IP address is </strong> {{ request.remote_addr }} <br>
+    </div>
     </div>
     <div class="col-sm-8">
       <div class="post-container">
@@ -27,7 +30,8 @@
         <div class="post" id="message{{ loop.index }}">
         {% if session.logged_in %}
         <button id='close' class="btn btn-xs btn-link"
-        onclick='this.parentNode.parentNode.removeChild(this.parentNode); return false;'>delete</button>
+        onclick='this.parentNode.parentNode.removeChild(this.parentNode);'>
+        delete</button>
         {% endif %}
           <strong>{{post.name}}</strong><br>
           {{post.message|safe}}
