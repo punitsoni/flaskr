@@ -2,3 +2,4 @@
 tmp/
 flaskr.sublime-workspace
 .DS_Store
+flaskr_config_local.py
