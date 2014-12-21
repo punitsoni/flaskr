@@ -1,3 +1,4 @@
 *.pyc
 tmp/
 flaskr.sublime-workspace
+.DS_Store

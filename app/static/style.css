@@ -1,7 +1,7 @@
 .post{
     background-color: #f1f1f1;
     padding:10px 10px;
-    box-shadow: 0px 0px 5px #888888;
+    box-shadow: 0px 0px 3px #888888;
     margin-top: 10px;
     margin-bottom: 10px;
 }
@@ -14,13 +14,33 @@
 .post-container {
 }
 
-.shadow-pane{
+.nav-shadow {
+    box-shadow: 0px 0px 3px #888888;
+}
+
+.shadow-pane {
     background-color: #f1f1f1;
     padding:10px 20px;
-    box-shadow: 0px 0px 5px #888888;
-    /*margin: 10px 10px;*/
+    box-shadow: 0px 0px 3px #888888;
 }
 /* override bootstrap alert style */
 .alert {
     padding:10px 10px;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    /*width: auto;*/
+    /*display: inline-block;*/
+    text-align: center;
+}
+
+footer {
+    background-color: #f1f1f1;
+    padding-bottom:50px;
+    padding-left:25px;
+    padding-right:25px;
+    margin: 0px;
+    font-size: x-small;
 }

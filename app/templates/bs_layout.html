@@ -4,27 +4,33 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Bootstrap core CSS -->
+  <link rel="icon" type="image/ico" href="/static/favicon.ico?v=2">
+  <!-- Bootstrap core CSS
   <link href="http://getbootstrap.com/dist/css/bootstrap.min.css"
-  rel="stylesheet">
+  rel="stylesheet">-->
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet"
+   href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css?v=2">
   <!-- site specific CSS -->
-  <link href="{{ url_for('static', filename='style.css') }}"
-  rel="stylesheet">
-
+  <link href="/static/style.css" rel="stylesheet">
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/
+    bootstrap.min.js"></script>
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js">
+  <script 
+  src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js">
   </script>
   <script src="static/main.js"></script>
 </head>
 <body role="document">
 <br>
 <div class="container">
-  <nav class="navbar navbar-inverse" role="navigation">
+  <nav class="navbar navbar-inverse nav-shadow" role="navigation">
   <div class="container-fluid">
     <div class="navbar-header">
       <strong>
         <a class="navbar-brand" href="{{ url_for('home') }}">
-        <span class="glyphilcon glyphicon-star"></span>
+        <span class="glyphicon glyphicon-star" style="color:#ee9933;"></span>
         Flaskr</a>
       </strong>
       </div>
@@ -34,11 +40,13 @@
         <li><a href="{{ url_for('admin') }}">Administration</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        {% if session.logged_in %}
-        <li><a href="{{ url_for('logout') }}">logout</a></li>
+      <li>
+       {% if session.logged_in %}
+        <a href="{{ url_for('logout') }}">logout</a>
         {% else %}
-        <li><a href="{{ url_for('admin') }}">login</a></li>
+        <a href="{{ url_for('admin') }}">login</a>
         {% endif %}
+        </li>
       </ul>
       </div>
   </nav>
@@ -53,4 +61,10 @@
   </div>
   {% block body %}{% endblock %}
 </body>
+<div class="container-fluid">
+<footer>
+  <hr><p class="center">Hosted by: Punit Soni |
+  <a href="mailto:punitxsmart@gmail.com">punitxsmart@gmail.com</a></p>
+</footer>
+</div>
 </html>

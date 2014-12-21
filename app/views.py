@@ -2,6 +2,7 @@ import sqlite3
 from flask import Flask, request, session, g, redirect, url_for, \
     abort, render_template, flash
 import platform
+import psutil
 
 from app import app
 from app import sys_info
@@ -60,6 +61,8 @@ def add_post():
 
 @app.route('/sysinfo')
 def sysinfo():
+    sys_info['mem_usage'] = psutil.virtual_memory().percent
+    sys_info['cpu_util'] = psutil.cpu_percent(percpu=True, interval=None)
     return render_template('sysinfo.html', sys_info=sys_info)
 
 @app.route('/admin', methods=['GET', 'POST'])
