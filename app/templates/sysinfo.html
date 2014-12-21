@@ -31,21 +31,29 @@
         <div class="panel-heading"> <strong>System status</strong> </div>
         <div class="panel-body">
           <h4> Memory Usage 
-          <span class="label label-success"> {{sys_info['mem_usage']}} % </span>
+          <span class="label label-default"> {{sys_info['mem_usage'].used}} used of
+           {{sys_info['mem_usage'].total}}</span>
           </h4>
           <div class="progress">
             <div class="progress-bar" role="progressbar"
-              aria-valuenow="{{sys_info['mem_usage']}}"
+              aria-valuenow="{{sys_info['mem_usage'].percent}}"
               aria-valuemin="0" aria-valuemax="100"
-              style="width: {{sys_info['mem_usage']}}%;">
-              <span> {{sys_info['mem_usage']}} % </span>
+              style="width: {{sys_info['mem_usage'].percent}}%;">
+              <span> {{sys_info['mem_usage'].percent}} % </span>
             </div>
 
           </div>
           <h4> CPU utilization </h4>
           {% for val in sys_info['cpu_util'] %}
-          <span class="label label-success">{{ val }} %</span>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar"
+              aria-valuenow="{{val}}"
+              aria-valuemin="0" aria-valuemax="100"
+              style="width: {{val}}%;">
+              <span> {{val}} % </span>
+            </div>
           {% endfor %}
+          </div>
         </div>
       </div>
       <div class="panel panel-default">

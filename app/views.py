@@ -61,7 +61,7 @@ def add_post():
 
 @app.route('/sysinfo')
 def sysinfo():
-    sys_info['mem_usage'] = psutil.virtual_memory().percent
+    sys_info['mem_usage'] = psutil.virtual_memory()
     sys_info['cpu_util'] = psutil.cpu_percent(percpu=True, interval=None)
     return render_template('sysinfo.html', sys_info=sys_info)
 

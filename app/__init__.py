@@ -38,7 +38,7 @@ if os.path.isdir(app.config['APP_ROOT']) == False:
     exit()
 
 if os.path.isfile(app.config['DATABASE']) == False:
-    print "Databse not found. Creating new one at ", app.config['DATABASE']
+    print "Database not found. Creating new one at ", app.config['DATABASE']
     os.mkdir(os.path.dirname(app.config['DATABASE']), 0755)
     init_db()
 
