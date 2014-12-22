@@ -53,6 +53,36 @@ function showPosition(pos)
     });
 }
 
+function sysinfo_refresh()
+{
+    var sysinfo;
+    (function worker() {
+      $.ajax({
+        url: '/ajax/sysinfo', 
+        dataType: "json",
+        success: function(data) {
+                console.log(data);
+                $("#mem_usage_bar").attr("aria-valuenow",
+                  data.sysinfo.mem_usage_percent)
+                $("#mem_usage_bar").css("width",
+                  data.sysinfo.mem_usage_percent + "%")
+                $("#mem_usage_bar").html(data.sysinfo.mem_usage_percent + " %");
+
+                $("#cpu_bar0").attr("aria-valuenow",
+                  data.sysinfo.cpu_util)
+                $("#cpu_bar0").css("width",
+                  data.sysinfo.cpu_util + "%")
+                $("#cpu_bar0").html(data.sysinfo.cpu_util + " %");                
+
+            },
+        complete: function() {
+                // Schedule the next request when the current one's complete
+                setTimeout(worker, 2000);
+            }
+      });
+    })();
+}
+
 /* Executed after window is loaded */
 window.onload = function() {
 /*    var payload = '䉁䅃䍂䉁䅃䍂䉁䅃䉁䅃䍂䉁䅃䍂䉁䅃䉁䅃䍂䉁䅃䍂䍂䉁䅃䍂䉁䅃';

@@ -35,7 +35,7 @@
            {{sys_info['mem_usage'].total}}</span>
           </h4>
           <div class="progress">
-            <div class="progress-bar" role="progressbar"
+            <div class="progress-bar" role="progressbar" id="mem_usage_bar"
               aria-valuenow="{{sys_info['mem_usage'].percent}}"
               aria-valuemin="0" aria-valuemax="100"
               style="width: {{sys_info['mem_usage'].percent}}%;">
@@ -46,7 +46,7 @@
           <h4> CPU utilization </h4>
           {% for val in sys_info['cpu_util'] %}
           <div class="progress">
-            <div class="progress-bar" role="progressbar"
+            <div class="progress-bar" role="progressbar" id="cpu_bar0"
               aria-valuenow="{{val}}"
               aria-valuemin="0" aria-valuemax="100"
               style="width: {{val}}%;">
@@ -54,6 +54,8 @@
             </div>
           {% endfor %}
           </div>
+        <button type="button"
+         class="btn btn-primary" onclick="sysinfo_refresh();">Refresh</button>
         </div>
       </div>
       <div class="panel panel-default">

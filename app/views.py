@@ -1,6 +1,6 @@
 import sqlite3
 from flask import Flask, request, session, g, redirect, url_for, \
-    abort, render_template, flash
+    abort, render_template, flash, jsonify
 import platform
 import psutil
 
@@ -35,7 +35,6 @@ def login():
             session['logged_in'] = True
             flash('You were logged in')
             return redirect(url_for('show_entries'))
-            return render_template('login.html', error=error)
 
 @app.route('/logout')
 def logout():
@@ -64,6 +63,16 @@ def sysinfo():
     sys_info['mem_usage'] = psutil.virtual_memory()
     sys_info['cpu_util'] = psutil.cpu_percent(percpu=True, interval=None)
     return render_template('sysinfo.html', sys_info=sys_info)
+
+@app.route('/ajax/sysinfo')
+def ajax_sysinfo():
+    sys_info['mem_usage_percent'] = psutil.virtual_memory().percent
+    sys_info['mem_total'] = psutil.virtual_memory().total
+    sys_info['mem_used'] = psutil.virtual_memory().used
+    sys_info['cpu_util'] = psutil.cpu_percent(percpu=True, interval=None)
+    #data = jsonify(results=["1", "2", "3"], name="Punit")
+    return jsonify(sysinfo=sys_info)
+
 
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
